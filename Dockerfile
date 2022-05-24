@@ -1,5 +1,5 @@
 FROM tensorflow/tensorflow
-RUN pip install flask janome
+RUN pip install flask janome cors
 COPY app.py /
 COPY ./w2i.pickle /
 COPY ./weights.hdf5 /
