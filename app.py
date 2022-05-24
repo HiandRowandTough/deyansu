@@ -189,18 +189,17 @@ app = Flask(__name__)
 CORS(app) # <-追加
 
 @app.route('/convert/<mes>', methods=['GET'])
-print(1)
 def get_post(mes):
-    print(1)
+  print(1)
   return json.dumps(convert(mes))
 
 @app.route('/convert', methods=['POST'])
 def post_mes():
-    print(2)
+  print(2)
   req = request.json['mes']
   res = convert(req)
   return json.dumps(res)
 
 if __name__ == '__main__':
-    print(0)
+  print(0)
   app.run()
