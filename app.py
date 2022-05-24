@@ -156,23 +156,25 @@ def index2word(i2w, sentence):
 def convert(x):
     inputTextList = Split_Sentence(x)
 
+    print(4)
     for i in range(len(inputTextList)):
         inputTextList[i] = Wakati_Method(inputTextList[i])
-
+    print(5)
     index_list = ["" for x in range(len(inputTextList))]
     for i in range(len(inputTextList)):
        inputTextList[i], index_list[i] = word2index(inputTextList[i], w2i)
-
+    print(6)
     index_list = pad_sequences(index_list, maxlen=5, padding='post')
+    print(7)
     index_list = tf.convert_to_tensor(index_list, dtype=tf.int32)
-
+    print(8)
     model = EncoderDecoder(input_dim, hidden_dim, output_dim)
-
+    print(9)
     #保存したモデルの復元
     model.load_weights('./checkpoints/my_checkpoint')
-
+    print(10)
     output = ["" for i in range(len(index_list))]
-
+    print(11)
     for i in range(len(index_list)):
         preds = tf.reshape(index_list[i], [1, 5])
         preds = model(preds)
@@ -180,21 +182,25 @@ def convert(x):
         output[i] = index2word(i2w, out)
         output[i] = inputTextList[i] + [x for x in output[i] if not x in special_chars]
         output[i] = ''.join(output[i])
-
+    print(12)
     return ''.join(output)
 
 app = Flask(__name__)
 CORS(app) # <-追加
 
 @app.route('/convert/<mes>', methods=['GET'])
+print(1)
 def get_post(mes):
+    print(1)
   return json.dumps(convert(mes))
 
 @app.route('/convert', methods=['POST'])
 def post_mes():
+    print(2)
   req = request.json['mes']
   res = convert(req)
   return json.dumps(res)
 
 if __name__ == '__main__':
+    print(0)
   app.run()
