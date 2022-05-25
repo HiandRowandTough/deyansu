@@ -171,7 +171,7 @@ def convert(x):
     model = EncoderDecoder(input_dim, hidden_dim, output_dim)
     print(9)
     #保存したモデルの復元
-    model.load_weights('./checkpoints')
+    model.load_weights('./checkpoints/my_checkpoint')
     print(10)
     output = ["" for i in range(len(index_list))]
     print(11)
